@@ -1,0 +1,25 @@
+<footer class="ci-footer">
+    <div class="container">
+        <div class="container-fluid">
+            <div class="ci-footer-left fs-14 no-padding-left no-padding-right w-50">Copyright&copy; ([VAR,CPYREND]) Credentials Solutions, LLC</div>
+            <div class="ci-footer-right fs-12 no-padding-left no-padding-right w-50">
+                <ul class="ci-link-list ci-link-list-right">
+                    <li><a href="([IF,TEST_INTERNAL,|https://qa-rsshelp.parchment.com/|,|https://rsshelp.parchment.com/|])" target="_blank">RSS Help</a></li>
+                    <li>|</li>
+                    <li><a href="https://www.parchment.com/privacy-policy/" target="_blank">Privacy Policy</a></li>
+                    <li>|</li>
+						  <li><a href="/CIHELP/CustServ.html" target="_blank">Customer Service</a></li>
+						  ([WHEN,TESTMODULEEXISTS])
+							  <li>|</li>
+							  ([WHEN,TEST_VERSION])
+								  <li><a href="javascript:callSubForm('form1','([VAR,PROD_PGM_NAME])','ACTION',GetValue('FORMID'))">Go To Prod</a></li>
+							  ([END,TEST_VERSION])
+							  ([WHEN,PROD_VERSION])
+								  <li><a href="javascript:callSubForm('form1','([VAR,TEST_PGM_NAME])','ACTION',GetValue('FORMID'))">Go To Test</a></li>
+							  ([END,PROD_VERSION])
+						  ([END,TESTMODULEEXISTS])
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>

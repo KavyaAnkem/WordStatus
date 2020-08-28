@@ -1,0 +1,380 @@
+Content-type: text/html
+
+([WHEN,HTML_CHANGE_HISTORY])
+10/24/19 RPR Update ON&OFF to On&Off buttons, Educheck messages to eduCheck Messages and Add a New to Add New
+04/04/17 Seneca - Re-designed this page using DIVs and incorporated following changes:
+                  1. Commented un-used CSS.
+                  2. Added comment lines for the Javascript changes.
+                  3. Moved ON and OFF buttons (placement) into Message Header for a better look and feel.
+07/24/17 Seneca - Incorporated latest Template css changes
+([END,HTML_CHANGE_HISTORY])
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="windows-1252">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<meta http-equiv="content-type" content="text/html;charset=ISO-8859-1" />
+
+<title>([VAR,PNLTITLE])</title>
+
+<!--Update to replacement variables-->
+<link rel="stylesheet" type="text/css" href="([RESOURCE,BOOTSTRAP.CSS])">
+<link rel="stylesheet" type="text/css" href="([RESOURCE,JQUERY-UI.CSS])">
+<link rel="stylesheet" type="text/css" href="/SL_css/CIcore.min.css">
+<link rel="stylesheet" type="text/css" href="([RESOURCE,RSSMAIN.CSS])">
+
+<style>
+.ci-banner .ci-display-container>.ci-display-left{word-break: keep-all; width:calc(45% - 100px);}
+.message-list { margin:1em auto; padding:0; }
+.message-item { margin:1em auto; padding:0; clear:both; }
+.MsgStat { width:40%; vertical-align:top; }
+.MstText { width:60%; font-size:1em; }
+h4.ui-widget-header { margin:0; padding:4px 0 4px 16px; /* background-color:#2269b5; background-image:none; color:#fff; text-shadow:0.0625em 0.0625em 0 #000; */ }
+
+.radio-status { font-size:85%; }
+.radio-status > .msg-off.ui-state-active { background:#CC0000; color:#fff; }
+.radio-status > .msg-on.ui-state-active { background:#008000; color:#fff; }
+.message-add { width:95%; margin:auto; }
+.EditMsg { box-sizing:content-box; float:left; width:50%; text-align:center; padding:0.5em 0; }
+.no-close .ui-dialog-titlebar-close { display: none; }
+.ui-dialog-title { font-size:85%; }
+#status-dialog p,#delet-msg p,#statusoff-dialog p { font-size:80%; }.ui-state-highlight { border: 1px solid #1c5593; background:#ececec; color:#211e1e; width:94%; margin:0.8em auto; padding:0.4em; font-size:0.9em; font-weight:bold; }
+.ui-checkboxradio-radio-label.ui-checkboxradio-checked .ui-icon{border-style:none}
+.ui-checkboxradio-icon.ui-icon{display:none;}
+.ui-state-error { width:85%; margin:0.8em auto; padding:0.4em; font-size:0.9em; }
+.ui-dialog > .ui-widget-header { background-color: #009688; color: #fff; }
+
+.cntrl-type > .ui-state-active { background:#009688; color:#fff; }
+[class*=" ui-corner-"]{border-radius:0}
+.no-text-decoration {text-decoration:none}
+.indentedList {margin-left:30px}
+
+.hiddenDiv{display:none;}
+#CloseLink  {background: #009688}
+#CloseLink:focus {color:#000!important;background-color:#ccc!important}
+.ci-dropdown-content{z-index:1}
+.focusCSS {color:#000!important;background-color:#ccc!important}
+
+.cardFont{font-size:12pt; font-weight:bold;}
+.ci-header-base2 {font-size:10pt;padding:0px 16px;min-height:40px;}
+.ui-widget-header {background:none;}
+.ci-row > div ul {padding-left:25px;}
+</style>
+
+<script type="text/javascript" src="([RESOURCE,JQUERY.JS])"></script>
+<script type="text/javascript" src="([RESOURCE,JQUERY-UI.JS])"></script>
+
+</head>
+
+<body>
+<noscript><div class="container ci-text-red">WARNING! This page uses JavaScript! If you would like to continue please enable scripting in your browser settings/preferences.</div></noscript>
+
+<form name="form1" id="form1" action="([VAR,APPLNAME])" method="post" autocomplete="off">
+
+<input type="hidden" name="FORMID" id="FORMID" value="([VAR,FORMID])">
+<input type="hidden" name="ACTION" id="ACTION" value="([VAR,ACTION])">
+<input type="hidden" name="SK" id="SK" value="([VAR,SK])">
+<input type="hidden" name="USERID" id="USERID" value="([VAR,USERID])">
+<input type="hidden" name="FICE" id="FICE" value="([VAR,FICE])">
+<input type="hidden" name="APPLID" id="APPLID" value="([VAR,APPLID])">
+
+<input type="hidden" name="MSG_SCRNID" id="MSG_SCRNID" value="([VAR,MSG_SCRNID])">
+<input type="hidden" name="MSG_LANG" id="MSGLANG" value="([VAR,MSG_LANG])">
+<input type="hidden" name="MODE" id="MODE" value="">
+<input type="hidden" name="MSG_SEQ" id="MSG_SEQ" value="">
+<input type="hidden" name="MSG_SCRSECT" id="MSG_SCRSECT" value="01">
+<input type="hidden" name="MSG_DATEOFF" id="MSG_DATEOFF" value="">
+
+<header class="ci-banner">
+    <div class="container">
+        <div class="ci-display-container" style="height:4em;">
+            <div class="ci-display-left">
+                ([VAR,SCHNAME])
+            </div>
+            <div class="ci-display-middle">
+                <img class="ci-banner-logo ci-image" id="rssLogo" src="/CIimages/rsslogo-1.png" alt="Credentials Solutions, LLC logo" role="presentation">
+            </div>
+        </div>
+    </div>
+</header>
+
+<nav class="ci-bar ci-card-4 ci-rss" id="rss-navbar">
+                <div class="container">
+                    <div class="ci-row">
+                        <div class="ci-third">
+   												&nbsp;
+                        </div>
+                        <div class="ci-third">
+                            <div class="ci-center">
+                                <h1 id="nav-title"  class="ci-large no-padding ci-bold">
+                                    Message Management
+                                </h1>
+                            </div>
+                        </div>
+
+                        <div class="ci-third">
+                              <button type="button" id="RefreshLink" class="ci-bar-item ci-button ci-rss ci-right ci-large" onclick="displaySpykes();subaction('SML');" title="Refresh"><span class="icon-refresh"></span><span class="sr-only">Refresh</span></button>
+                        </div>
+
+                    </div>
+                </div>
+</nav>
+
+
+<!-- start the container div -->
+
+<div class="container" >
+	<!-- start the MainBody div -->
+	<div id="MainBody" class="ci-main">
+		<!--h1 class="fs-24 ci-txt-ctr ci-text-red"><strong>Message Management</strong></h1-->
+		<div class="message-list">
+			<h2 class="fs-18 ci-txt-ctr" >([VAR,HDRMSGLST])</h2>
+			<div style="width:85%; text-align:center; margin:auto;">
+		 		([FILE,s_messages.html])
+     	    </div>
+			<div class="ci-row">
+				<div class="ci-col-6 no-padding-left cntrl-type">
+					<input type="radio" id="TPMSGS" name="MSGMODE" value="T" ([IF,SWTCH2D2,"checked",""])><label for="TPMSGS" class="ci-input no-margin-bottom">Transcript messages</label>
+					([WHEN,HASD2])<input type="radio" id="EDUMSGS" name="MSGMODE" value="E" ([IF,SWTCH2TP,"checked",""])><label for="EDUMSGS" class="ci-input no-margin-bottom">eduCheck Messages</label>([END,HASD2])
+				</div>
+
+				<div class="ci-col-6 no-padding-right ci-txt-rt">
+				<!-- Add new message button -->
+				([WHEN,ADDNEWMSG]) <a id="newMessage" href="#" class="no-underline">Add New message</a>&nbsp;|&nbsp;([END,ADDNEWMSG])
+
+				<!-- Links to Order From -->
+				([WHEN,APPLID-TP])<a href="dvcgitp.pgm?ALUMTRO([VAR,FICE])" target="_blank" class="no-underline">View Order Form</a>([END,APPLID-TP])
+				([WHEN,APPLID-D2])<a id="eduCheckOrder" href="#" target="_blank" class="no-underline">View eduCheck Order Form</a>([END,APPLID-D2])
+				</div>
+			</div>
+                        <div class="ci-border-top no-margin ci-padding">
+				<!-- Top Section -->
+				([LOOP,SECTIONS])
+				<div class="message-section">
+					([LOOP,CIMSGS])
+					<!-- html Title -->
+					<div class="message-item ci-content ci-card ci-card-2">
+					<div class="ci-row">
+						<div class="ci-col-8 ci-txt-lt ci-header-base2" >
+						<h3 id="MsgHdr([VAR,JM_MSG_SEQ])" class="ci-large">([VAR,HTMLTITLE])</h3>
+						</div>
+						<div class="ci-col-4 ci-txt-rt ci-header-base2" >
+
+							<button type="button" class="ci-button" style="background: none;" onclick="ProcMessage('([VAR,JM_MSG_SEQ])','#MsgHdr([VAR,JM_MSG_SEQ])','UPM');" title="Edit Message"><span class="icon-mode_edit fs-18"></span><span class="sr-only">Edit</span></button>
+							<button type="button" class="ci-button" style="background: none;" onclick="ProcMessage('([VAR,JM_MSG_SEQ])','#MsgHdr([VAR,JM_MSG_SEQ])','DLT');" title="Delete Message"><span class="icon-delete fs-18"></span><span class="sr-only">Delete</span></button>
+
+							<span class="radio-status " id="Radio([VAR,JM_MSG_SEQ])" >
+								<input type="radio" name="STATUS([VAR,JM_MSG_SEQ])" ([WHEN,MSGSTAT-N])onclick="ChangeStatus('#Radio([VAR,JM_MSG_SEQ])','([VAR,JM_MSG_SEQ])','([VAR,JM_STATUS])');"([END,MSGSTAT-N]) id="STATUS([VAR,JM_MSG_SEQ])Y" value="Y" ([IF,MSGSTAT-Y,"checked",""])>
+                                                                <label for="STATUS([VAR,JM_MSG_SEQ])Y" class="msg-on" id="LABEL([VAR,JM_MSG_SEQ])Y" style="font-size:85%">On</label>
+								<input type="radio" name="STATUS([VAR,JM_MSG_SEQ])" ([WHEN,MSGSTAT-Y])onclick="ChangeStatus('#Radio([VAR,JM_MSG_SEQ])','([VAR,JM_MSG_SEQ])','([VAR,JM_STATUS])');"([END,MSGSTAT-Y]) id="STATUS([VAR,JM_MSG_SEQ])N" value="N" ([IF,MSGSTAT-N,"checked",""])>
+								<label for="STATUS([VAR,JM_MSG_SEQ])N" class="msg-off" id="LABEL([VAR,JM_MSG_SEQ])N" style="font-size:85%">Off</label>
+							</span>
+						</div>
+					</div>
+						<div class="ci-row">
+							<div class="MsgText ci-col-12 ci-spacing">
+								([VAR,JM_TEXT])
+							</div>
+						</div>
+						<div class="ci-margin-top ci-margin-bottom ci-border-top">
+							<div class="ci-row">
+								<div class="ci-col-6">
+									([WHEN,JM_CHGDT])
+									<ul class="rss-ul">
+										<li class="rss-li"><strong>Changed By: </strong> ([VAR,JM_CHGUSR])</li>
+										<li class="rss-li"><strong>Changed On: </strong>([VAR,JM_CHGDATE])</li>
+									</ul>
+									([END,JM_CHGDT])
+								</div>
+								([WHEN,MSGAUTO-OF])
+								<div class="ci-col-6">
+									<ul class="rss-ul">
+										<li class="rss-li"><strong>Message Auto turn ON: </strong>([VAR,JM_DATEON])</li>
+										<li class="rss-li"><strong>Message Auto turn OFF: </strong> ([VAR,JM_DATEOFF])</li>
+									</ul>
+								</div>
+								([END,MSGAUTO-OF])
+
+								([WHEN,MSGAUTO-F])
+								<div class="ci-col-6">
+									<ul class="rss-ul">
+										<li class="rss-li"><strong>Message Auto turn OFF: </strong>([VAR,JM_DATEOFF])</li>
+									</ul>
+								</div>
+								([END,MSGAUTO-F])
+
+
+							</div>
+						</div>
+					</div>
+					([END,CIMSGS])
+				</div>
+				([END,SECTIONS])
+			</div>
+
+		</div>
+	</div><!--  The END of the Main Page div //-->
+</div><!--  The END of the Container div //-->
+
+([FILE,s_footer.html])
+
+<div id="status-dialog"  title="Confirm Message Status Change" class="hiddenDiv">
+	<p><span class="icon-warning"></span>By changing this messages status to ON, the Auto Date On will be set to today.</p>
+	<p>Are you sure you want to continue?</p>
+</div>
+
+<div id="statusoff-dialog" title="Confirm Message Status Change" class="hiddenDiv">
+	<p><span class="icon-warning"></span>By forcing this messages status to OFF, the Auto Date On and Auto Date Off will both be cleared.</p>
+	<p>Are you sure you want to continue?</p>
+</div>
+
+<div id="delete-msg" title="Confirm Message Deletion" class="hiddenDiv">
+	<p><span class="icon-warning"></span>Please confirm you would like to delete this message:</p>
+	<p id="DltCnfrm" style="color:#2269b5;"></p>
+</div>
+
+</form>
+
+<div class="ci-overlay-dark hiddenDiv">
+	<div class="sk-wave">
+		<div class="sk-rect sk-rect1"></div>
+		<div class="sk-rect sk-rect2"></div>
+		<div class="sk-rect sk-rect3"></div>
+		<div class="sk-rect sk-rect4"></div>
+		<div class="sk-rect sk-rect5"></div>
+	</div>
+	<!--<div class="sk-rotating-plane"></div>-->
+</div>
+
+<script type="text/javascript" src="([RESOURCE,DFLTJSFUNCTS.JS])"></script>
+<script type="text/javascript" src="([RESOURCE,NEWWINDOW.JS])"></script>
+<script type="text/javascript" src="([RESOURCE,COMMONJSFUNCTS.JS])"></script>
+<script type="text/javascript" src="([RESOURCE,BOOTSTRAP.JS])"></script>
+<script type="text/javascript" src="/ci_jss/fontspy.js"></script>
+<script type="text/javascript" src="([RESOURCE,RSSFUNCTS.JS])"></script>
+
+<script>
+document.getElementById("rssLogo").addEventListener("contextmenu", function() {alert('Copyrighted Material property of: Credentials Solutions, LLC');event.preventDefault();});
+([WHEN,APPLID-D2])document.getElementById("eduCheckOrder").addEventListener("click", function() {openWindow('educheck','D2','SK','eduCheckWin','ACTION:RSS,DVUSERID:null:USERID');});([END,APPLID-D2])
+([WHEN,ADDNEWMSG])document.getElementById("newMessage").addEventListener("click", function() {subaction('ANM');});([END,ADDNEWMSG])
+([WHEN,HASD2])document.getElementById("EDUMSGS").addEventListener("click", function() {switchApplId('D2');});([END,HASD2])
+document.getElementById("TPMSGS").addEventListener("click", function() {switchApplId('TP');});
+
+
+$(function() {
+  $(".add-message").button({ icons: { primary: "ui-icon-circle-plus" } } );
+  $(".delete-message").button({ icons: { primary: "ui-icon-trash" } } );
+  $(".search-button").button( { icons: { primary: "ui-icon-search" } } );
+  $("button,input[type=button],input[type=submit]").button();
+  $( ".radio-status" ).buttonset();
+
+  $("#delete-msg").dialog({ autoOpen: false, closeOnEscape: false, dialogClass: "no-close",
+	position: { my:"center top", at:"center top", of:".message-list" },
+	resizable: false, draggable:false, modal:true,  width:550,
+	buttons: [
+        {
+            text: "Yes",
+            "class": 'ci-button ci-button-s ci-teal',
+            click: function() {
+               displaySpykes(); subaction('DLT');
+            }
+        },
+        {
+            text: "No",
+            "class": 'ci-button ci-button-s ci-teal',
+            click: function() {
+                $("#MSG_SEQ").val(""); $(this).dialog("close");
+            }
+        }
+    ]
+   });
+
+  $("#status-dialog,#statusoff-dialog").dialog({ autoOpen:false, modal:true, width:450,
+    resizable:false, draggable:false, dialogClass: "no-close",
+    position: { my:"center top", at:"center top", of:".message-list" },
+    buttons: [
+        {
+            text: "Yes",
+            "class": 'ci-button ci-button-s ci-teal',
+            click: function() {
+               subaction('UMS');
+            }
+        },
+        {
+            text: "No",
+            "class": 'ci-button ci-button-s ci-teal',
+            click: function() {
+               SetChecked($StatusRadio);
+			   $($AddActive).removeClass("ui-state-active");
+			   $($RemoveActive).addClass("ui-state-active");
+			   $(this).dialog("close");
+            }
+        }
+    ]
+
+          });
+
+	/*	New code to show the server Validations and to truncate the Message text */
+	if($('#serverValidations > div').length > 0 ) {
+		$("#serverValidations").css('display','inline-block');
+	}
+
+	$( ".cntrl-type" ).buttonset();
+/* End of New code changes */
+});
+
+function ProcMessage(msgSeq,HdrId,theAction) {
+	$("#MSG_SEQ").val(msgSeq);
+	if (theAction == "DLT") {
+		$("#DltCnfrm").text( $(HdrId).text() );
+		$("#delete-msg").dialog("open");	}
+	else {
+		displaySpykes();subaction(theAction);}
+}
+
+/* Added $ before the jQuery variables,as per the Coding standards */
+var $StatusRadio = "";
+var $RemoveActive = "";
+var $AddActive = "";
+
+function ChangeStatus(RadioDiv,MsgSeqNum,haveDates) {
+	var $divChild = $(RadioDiv).children();
+	for (x=0;x<$divChild.length;x++) {
+	if ($divChild[x].type == "radio") {
+		if (!isChecked($divChild[x].id))
+		$StatusRadio = $divChild[x].id;}
+	else {
+	   var $LabelID = "#" + $divChild[x].id;
+	   if ($($LabelID).hasClass("ui-state-active"))
+			$RemoveActive = $LabelID;
+	   else
+			$AddActive = $LabelID;
+		}
+	}
+
+	$("#MSG_SEQ").val(MsgSeqNum);
+	if (haveDates == "Y") {
+		$("#status-dialog").dialog("open");}
+	else if (haveDates == "F") {
+		$("#statusoff-dialog").dialog("open");}
+	else {
+		displaySpykes();subaction('UMS');}
+}
+
+function switchApplId(applid) {
+	$("#APPLID").val(applid);
+	displaySpykes();
+	subaction('SML');
+}
+
+
+
+</script>
+
+</body>
+
+</html>
