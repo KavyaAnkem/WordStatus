@@ -80,6 +80,7 @@ function getFilesInDirectory(dir, ext) {
 }
 
 var fs = require('fs');
+const { count } = require('console');
 const OPEN_BRC = '([';
 const CLOSE_BRC = '])';
 const VAR_IF = 'IF';
@@ -90,6 +91,7 @@ const NEXT_LINE = '\n';
 
 const srcFile = 'messageList.html';
 // const destFile = process.argv[4];
+// findvariablesinFolder();
 
 var writeStream = fs.createWriteStream('file.xlsx');
 
@@ -101,6 +103,12 @@ const writeToTheFile = (content) => {
 };
 
 writeToTheFile('RPG VARIABLE' + SPACE + 'VALUE' + NEXT_LINE);
+// function count(pFile, callback) {
+//   fs.readFile(pFile, "utf8", function(err, data){
+//      callback(data.split("\n").length-1);
+//   });
+// }
+// count(findvariablesinFolder);
 
 fs.readFile(srcFile, 'utf8', function (err, contents) {
   initProcess(contents);
@@ -114,8 +122,10 @@ const initProcess = (contents) => {
     } else {
       break;
     }
-    findvariablesinFolder();
   }
+  setTimeout(function () {
+    findvariablesinFolder();
+  }, 1000);
 };
 
 const extractVars = (contents) => {
